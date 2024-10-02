@@ -12,6 +12,8 @@ import fi.haagahelia.bookstore_khoiphan.domain.Book;
 import fi.haagahelia.bookstore_khoiphan.domain.BookRepository;
 import fi.haagahelia.bookstore_khoiphan.domain.Category;
 import fi.haagahelia.bookstore_khoiphan.domain.CategoryRepository;
+import fi.haagahelia.bookstore_khoiphan.domain.User;
+import fi.haagahelia.bookstore_khoiphan.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreKhoiphanApplication {
@@ -23,7 +25,7 @@ public class BookstoreKhoiphanApplication {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository categoryrepository){
+	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository categoryrepository, UserRepository uRepository){
 		return (args) -> {
 
 			log.info("Create some categories.");
@@ -50,6 +52,14 @@ public class BookstoreKhoiphanApplication {
 			for(Book book : repository.findAll()){
 				log.info(book.toString());
 			}
+
+			log.info("Save some users.");
+			User user1 = new User("user", "$2a$10$5eota6DvrUlNFvzBwbVgO.a1UF4CCdw9wCgVAB8IfAauxnsVNxxje", "user@email.com", "USER");
+			User admin = new User("admin","$2a$10$PN6dyQHTqf8exRftszQvXuzn9JrG4NQp76r5PMAbFnU7sUgvSVQT.", "admin@email.com","ADMIN");
+			
+			uRepository.save(user1);
+			uRepository.save(admin);
+			
 
 		};
 	}
