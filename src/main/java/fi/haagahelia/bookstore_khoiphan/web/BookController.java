@@ -24,6 +24,11 @@ public class BookController {
     @Autowired
     private CategoryRepository categoryrepository;
     
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping({"/", "/booklist"})
     public String booklist(Model model){
         model.addAttribute("books", repository.findAll());
